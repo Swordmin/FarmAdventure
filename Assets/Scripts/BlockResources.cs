@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using Zenject;
 
 [RequireComponent(typeof(Button))]
 public class BlockResources : MonoBehaviour
@@ -17,9 +18,17 @@ public class BlockResources : MonoBehaviour
     public int Count => _count;
 
     private Button _button;
+    [SerializeField] private SceneBlockInput _sceneBlockInput;
+
+    [Inject]
+    public void Constructor(SceneBlockInput sceneBlockInput) 
+    {
+        _sceneBlockInput = sceneBlockInput;
+    }
 
     private void OnEnable()
     {
+        _sceneBlockInput.AddResource(this);
         _button = GetComponent<Button>();
         _button.onClick.AddListener(() => OnSelect?.Invoke(_type));
         UpdateText();

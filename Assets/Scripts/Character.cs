@@ -26,6 +26,8 @@ public class Character : MonoBehaviour
     [SerializeField] private float _direction;
 
     [SerializeField] private List<Block> _blocks;
+    public Block LastBlock => _blocks[_blocks.Count - 1];
+    public IReadOnlyCollection<Block> Blocks => _blocks;
 
     [SerializeField] private Button _buttonStart;
 
@@ -58,6 +60,39 @@ public class Character : MonoBehaviour
             }
         }
     }
+
+    public void AddBlock(Block block)
+    {
+        _blocks.Add(block);
+    }
+
+    public void RemoveBlock(Block block) 
+    {
+        if(IsFindBlock(block))
+            _blocks.Remove(block);
+    }
+
+    public Block FindBlock(Block blockFind) 
+    {
+        foreach(Block block in _blocks) 
+        {
+            if (block == blockFind)
+                return blockFind;
+        }
+
+        return null;
+    }
+    public bool IsFindBlock(Block blockFind)
+    {
+        foreach (Block block in _blocks)
+        {
+            if (block == blockFind)
+                return true;
+        }
+
+        return false;
+    }
+
 
     private void Move()
     {

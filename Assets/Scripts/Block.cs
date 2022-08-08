@@ -13,6 +13,8 @@ public class Block : MonoBehaviour
     [SerializeField] private BlockType _type = BlockType.Normal;
     public BlockType Type => _type;
 
+    private GameObject _index;
+
 
     public void SetType(BlockType type)
     {
@@ -28,5 +30,16 @@ public class Block : MonoBehaviour
                 break;
         }
 
+    }
+
+    public void Select() 
+    {
+        GameObject IndexCreate = Instantiate(Resources.Load<GameObject>("Index"),transform.position,Quaternion.identity,transform);
+        _index = IndexCreate;
+    }
+
+    public void UnSelect() 
+    {
+        Destroy(_index);
     }
 }
